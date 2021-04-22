@@ -1,1 +1,164 @@
-{"nbformat":4,"nbformat_minor":0,"metadata":{"colab":{"name":"hearts master.py","provenance":[],"collapsed_sections":[]},"kernelspec":{"name":"python3","display_name":"Python 3"},"language_info":{"name":"python"}},"cells":[{"cell_type":"code","metadata":{"id":"pAMv57vSusYX"},"source":["import random\n","#all possibilities for what a card could be\n","class card:\n","  suit = {\n","      0: \"spades\",\n","      1: \"hearts\",\n","      2: \"diamonds\",\n","      3: \"clubs\",\n","  }\n","  value = {\n","      2: \"two\",\n","      3: \"three\",\n","      4: \"four\",\n","      5: \"five\",\n","      6: \"six\",\n","      7: \"seven\",\n","      8: \"eight\",\n","      9: \"nine\",\n","      10: \"ten\",\n","      11: \"jack\",\n","      12: \"queen\",\n","      13: \"king\",\n","      14: \"ace\",\n","  }\n","#all variables set to default\n","def init(self, suit, value):\n","  suit = self.suit\n","  value = self.value \n","\n","def equals(self, card):\n","  self.suit == card.suit\n","  self.value == card.value\n","  return self.suit and self.value\n"],"execution_count":null,"outputs":[]},{"cell_type":"code","metadata":{"id":"rtx3SU1yu130"},"source":["class deck:\n","  def __init__(self):\n","    self.deck = []\n","    self.cards = self.initiate_cards()\n","#creates empty lists\n","def player_hand(self):\n","  random.shuffle(self.cards)\n","  return self.cards\n","#changes up order of cards\n","def initiate_cards(self):\n","  cards = []\n","  for suit in self.suits:\n","    for value in self.values:\n","      cards.append(card(suit, value))\n","      random.shuffle(cards)\n","      return cards\n","#makes sure generated value is reasonable\n","def grab_card(self):\n"," if self.cards:\n","\t  return self.cards.pop()\n","#removes card"],"execution_count":null,"outputs":[]},{"cell_type":"code","metadata":{"id":"mh_5EypevGsl"},"source":["class hand:\n"," def __init__(self, name):\n","  self.cards = []\n","  self.name = name\n","  self.points = 0\n","  self.clubs = []\n","  self.diamonds = []\n","  self.spades = []\n","  self.hearts = []\n","  self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]\n"," # user's hand defined by different suits\n","\n"," def dealt_cards(self, card):\n","  hand_length = len(self.clubs) + len(self.diamonds) + len(self.spades) + len(self.hearts)\n","  while hand_length < 13:\n","    choose_suit = randrange(0,4)\n","    if choose_suit == 0:\n","      self.spades.append(card)\n","    elif choose_suit == 1:\n","      self.hearts.append(card)\n","    elif choose_suit == 2:\n","      self.diamonds.append(card)\n","    elif choose_suit == 3:\n","      self.clubs.append(card)\n","  self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]\n","#adds each drawn card to the designated list\n","\n"," def holds(self, beginning_card):\n","  beginning_card = card(3, 2)\n","  for card in self.cards:\n","   if card.equals(beginning_card):\n","    return True\n","   else:\n","    return False\n","# sets the 2 of clubs as the beginning card\n","  \n","  print(self.cards)\n","  print(self.points)\n"],"execution_count":null,"outputs":[]},{"cell_type":"code","metadata":{"id":"l3E3HRghvHzF"},"source":["#@title\n","class game:\n"," def init(self):\n","  self.points = 0\n","  self.deck = deck[]\n","  self.primary_card = None\n","  self.hearts_broken = False\n","  self.previously_played = []\n","  self.first_player = 0\n","  self.players = self.define_players()\n"," \n","def define_players(self):\n","  players = [hand()]\n","  for i in range(4):\n","    name = input(\"player name\")\n","    players.append(hand(name))\n","  return players\n","#asks user to name each player\n","\n","def starting_player(self):\n","  for i in range(len(self.players)):\n","    player = self.players[i]\n","    if player.holds(card(3,2)):\n","      return i\n","#defines starting player as the one holding the 2 of clubs\n","\n","def playable_cards(self):\n","  if self.holds == True:\n","    self.clubs.remove(card(3, 2))\n","    previously_played.append(card(3, 2))\n","    playables = [card(3, 2)]\n","  elif self.holds == False:\n","    if hearts_broken == True:\n","      playables = self.hand\n","    elif hearts_broken == False and len(self.clubs) == 0 and len(self.diamonds) == 0 and len(self.spades) == 0:\n","      playables = self.hand\n","    else:\n","      playables = [self.clubs + self.diamonds + self.spades]\n","#defines what cards in the user's hand are able to be played\n","\n","def round_play(self):\n"," for i in range(4):\n","   player = self.players[(self.firstplayer + i) % 4]\n","   card_played = player.play_card(self.primary_card, self.hearts_broken)\n","   print(player.name + \" played \" + str(card_played))\n","   if i == 0:\n","     self.primary_card = card_played\n","   if card_played.suit == 1:\n","     self.hearts_broken = True\n","   self.previously_played.append(card_played)\n"," sort(self.previously_played)\n"," top_card = self.previously_played[0]\n"," trick_taker = self.players[((self.first_player + self.previously_played.index(top_card))% 4)]\n"," self.first_player = self.players.index(trick_taker)\n"," self.primary_card = None\n"," self.previously_played = []\n"," # determines who takes a particular trick based on the value of the card\n"," # alots points based on who took each trick\n","\n"," print(cards)\n"," print(points) "],"execution_count":null,"outputs":[]}]}
+import random
+#all possibilities for what a card could be
+class card:
+  suit = {
+      0: "spades",
+      1: "hearts",
+      2: "diamonds",
+      3: "clubs",
+  }
+  value = {
+      2: "two",
+      3: "three",
+      4: "four",
+      5: "five",
+      6: "six",
+      7: "seven",
+      8: "eight",
+      9: "nine",
+      10: "ten",
+      11: "jack",
+      12: "queen",
+      13: "king",
+      14: "ace",
+  }
+#all variables set to default
+def init(self, suit, value):
+  suit = self.suit
+  value = self.value 
+
+def equals(self, card):
+  self.suit == card.suit
+  self.value == card.value
+  return self.suit and self.value
+
+
+
+class deck:
+  def __init__(self):
+    self.deck = []
+    self.cards = self.initiate_cards()
+#creates empty lists
+def player_hand(self):
+  random.shuffle(self.cards)
+  return self.cards
+#changes up order of cards
+def initiate_cards(self):
+  cards = []
+  for suit in self.suits:
+    for value in self.values:
+      cards.append(card(suit, value))
+      random.shuffle(cards)
+      return cards
+#makes sure generated value is reasonable
+def grab_card(self):
+ if self.cards:
+	  return self.cards.pop()
+#removes card
+
+
+
+
+class hand:
+ def __init__(self, name):
+  self.cards = []
+  self.name = name
+  self.points = 0
+  self.clubs = []
+  self.diamonds = []
+  self.spades = []
+  self.hearts = []
+  self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]
+ # user's hand defined by different suits
+
+ def dealt_cards(self, card):
+  hand_length = len(self.clubs) + len(self.diamonds) + len(self.spades) + len(self.hearts)
+  while hand_length < 13:
+    choose_suit = randrange(0,4)
+    if choose_suit == 0:
+      self.spades.append(card)
+    elif choose_suit == 1:
+      self.hearts.append(card)
+    elif choose_suit == 2:
+      self.diamonds.append(card)
+    elif choose_suit == 3:
+      self.clubs.append(card)
+  self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]
+#adds each drawn card to the designated list
+
+ def holds(self, beginning_card):
+  beginning_card = card(3, 2)
+  for card in self.cards:
+   if card.equals(beginning_card):
+    return True
+   else:
+    return False
+# sets the 2 of clubs as the beginning card
+  
+  print(self.cards)
+  print(self.points)
+
+
+
+
+#@title
+class game:
+ def init(self):
+  self.points = 0
+  self.deck = deck()
+  self.primary_card = None
+  self.hearts_broken = False
+  self.previously_played = []
+  self.first_player = 0
+  self.players = self.define_players()
+ 
+def define_players(self):
+  players = [hand()]
+  for i in range(4):
+    name = input("player name")
+    players.append(hand(name))
+  return players
+#asks user to name each player
+
+def starting_player(self):
+  for i in range(len(self.players)):
+    player = self.players[i]
+    if player.holds(card(3,2)):
+      return i
+#defines starting player as the one holding the 2 of clubs
+
+def playable_cards(self):
+  if self.holds == True:
+    self.clubs.remove(card(3, 2))
+    previously_played.append(card(3, 2))
+    playables = [card(3, 2)]
+  elif self.holds == False:
+    if hearts_broken == True:
+      playables = self.hand
+    elif hearts_broken == False and len(self.clubs) == 0 and len(self.diamonds) == 0 and len(self.spades) == 0:
+      playables = self.hand
+    else:
+      playables = [self.clubs + self.diamonds + self.spades]
+#defines what cards in the user's hand are able to be played
+
+def round_play(self):
+ for i in range(4):
+   player = self.players[(self.firstplayer + i) % 4]
+   card_played = player.play_card(self.primary_card, self.hearts_broken)
+   print(player.name + " played " + str(card_played))
+   if i == 0:
+     self.primary_card = card_played
+   if card_played.suit == 1:
+     self.hearts_broken = True
+   self.previously_played.append(card_played)
+ sort(self.previously_played)
+ top_card = self.previously_played[0]
+ trick_taker = self.players[((self.first_player + self.previously_played.index(top_card))% 4)]
+ self.first_player = self.players.index(trick_taker)
+ self.primary_card = None
+ self.previously_played = []
+ # determines who takes a particular trick based on the value of the card
+ # alots points based on who took each trick
+
+ print(cards)
+ print(points) 
