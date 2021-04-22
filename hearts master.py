@@ -192,6 +192,5 @@ class game:
  #determines who takes a particular trick based on the value of the card
  #alots points based on who took each trick 
 
-
   print(self.cards)
   print(self.points)
